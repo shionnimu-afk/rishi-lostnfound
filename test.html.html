@@ -1,0 +1,248 @@
+<html>
+<head>
+<title>test.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bababa;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+test.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;!doctype </span><span class="s2">html</span><span class="s0">&gt;</span>
+<span class="s0">&lt;html&gt;</span>
+<span class="s0">&lt;head&gt;</span>
+<span class="s0">&lt;style&gt;</span>
+    <span class="s1">h1 {</span>
+    <span class="s1">font-family: Arial, sans-serif;</span>
+    <span class="s1">font-size:40px;</span>
+    <span class="s1">}</span>
+    <span class="s1">body {</span>
+    <span class="s1">font-family: Arial, sans-serif;</span>
+    <span class="s1">}</span>
+    <span class="s1">p {</span>
+    <span class="s1">font-family: Arial, sans-serif;</span>
+    <span class="s1">font-size:20px;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">button {</span>
+    <span class="s1">font-size:15px;</span>
+    <span class="s1">}</span>
+
+<span class="s1">#layout {</span>
+  <span class="s1">display: flex;</span>
+  <span class="s1">align-items: flex-start;</span>
+  <span class="s1">gap: 30px;</span>
+<span class="s1">}</span>
+
+    <span class="s1">#form {</span>
+    <span class="s1">width:500px;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#feed {</span>
+    <span class="s1">background-color: #e0e0e0;</span>
+    <span class="s1">padding: 10px;</span>
+    <span class="s1">border-radius: 12px;</span>
+    <span class="s1">min-height: 400px;</span>
+    <span class="s1">max-height: 10000px;</span>
+    <span class="s1">width:1000px;</span>
+    <span class="s1">display: grid;</span>
+    <span class="s1">grid-template-columns: repeat(3, minmax(0,1fr));</span>
+    <span class="s1">gap:20px;</span>
+    <span class="s1">overflow-y: auto;</span>
+    <span class="s1">align-content: start;</span>
+    <span class="s1">grid-auto-rows: auto;</span>
+
+    <span class="s1">}</span>
+
+
+<span class="s0">&lt;/style&gt;</span>
+
+
+<span class="s0">&lt;/head&gt;</span>
+<span class="s0">&lt;body </span><span class="s2">style</span><span class="s3">=&quot;background-color:lightgray;&quot;</span><span class="s0">&gt;</span>
+
+<span class="s0">&lt;script&gt;</span>
+    <span class="s1">let photoURL = null;</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;h1&gt; </span><span class="s1">Mustangs Lost and Found </span><span class="s0">&lt;/h1&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;layout&quot;</span><span class="s0">&gt;</span>
+
+
+
+    <span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;form&quot;</span><span class="s0">&gt;</span>
+
+<span class="s0">&lt;p&gt; </span><span class="s1">Post a lost and found image below: </span><span class="s0">&lt;/p&gt;</span>
+
+
+<span class="s4">&lt;!--&lt;input type=&quot;file&quot;--&gt;</span>
+<span class="s4">&lt;!--       accept=&quot;image/*&quot;--&gt;</span>
+<span class="s4">&lt;!--       capture--&gt;</span>
+<span class="s4">&lt;!--       style=&quot;width:500px; height:200px; border: 5px solid black; border-radius: 20px; background-color: #f2f2f2&quot;;--&gt;</span>
+<span class="s4">&lt;!--align-items:center;&quot;&gt;--&gt;</span>
+
+<span class="s0">&lt;button </span><span class="s2">id</span><span class="s3">=&quot;camera&quot; </span><span class="s2">type</span><span class="s3">=&quot;button&quot; </span><span class="s2">style</span><span class="s3">=&quot;display: block; margin-bottom:20px&quot;</span><span class="s0">&gt;</span><span class="s1">Enable Camera</span><span class="s0">&lt;/button&gt;</span>
+<span class="s0">&lt;button </span><span class="s2">id</span><span class="s3">=&quot;capture&quot; </span><span class="s2">type</span><span class="s3">=&quot;button&quot; </span><span class="s2">style</span><span class="s3">=&quot;display:block; margin-bottom:20px&quot;</span><span class="s0">&gt;</span><span class="s1">Capture</span><span class="s0">&lt;/button&gt;</span>
+<span class="s0">&lt;video </span><span class="s2">id</span><span class="s3">=&quot;video&quot; </span><span class="s2">autoplay playsinline style</span><span class="s3">=&quot;width:500px; height:300px; background:black;&quot;</span><span class="s0">&gt;&lt;/video&gt;</span>
+
+<span class="s0">&lt;canvas </span><span class="s2">id</span><span class="s3">=&quot;canvas&quot; </span><span class="s2">style</span><span class="s3">=&quot;display:none;&quot;</span><span class="s0">&gt;&lt;/canvas&gt;</span>
+<span class="s0">&lt;img </span><span class="s2">id</span><span class="s3">=&quot;photo&quot; </span><span class="s2">style</span><span class="s3">=&quot;width:500px; height:300px; display:none; margin-top:15px; border-radius:12px; border:2px solid black;&quot;</span><span class="s0">&gt;</span>
+
+
+<span class="s0">&lt;script&gt;</span>
+    <span class="s1">const canvas = document.getElementById(&quot;canvas&quot;);</span>
+    <span class="s1">const photo = document.getElementById(&quot;photo&quot;);</span>
+    <span class="s1">const video = document.getElementById(&quot;video&quot;);</span>
+
+
+    <span class="s1">document.getElementById(&quot;camera&quot;).onclick = async () =&gt; {</span>
+
+        <span class="s1">const stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false });</span>
+        <span class="s1">video.srcObject = stream;</span>
+
+        <span class="s1">};</span>
+
+        <span class="s1">document.getElementById(&quot;capture&quot;).onclick = () =&gt; {</span>
+        <span class="s1">if(video.paused) {</span>
+        <span class="s1">video.play();</span>
+        <span class="s1">photoURL = null;</span>
+        <span class="s1">document.getElementById(&quot;capture&quot;).innerText = &quot;Capture&quot;;</span>
+        <span class="s1">}</span>
+        <span class="s1">else {</span>
+            <span class="s1">video.pause();</span>
+            <span class="s1">document.getElementById(&quot;capture&quot;).innerText = &quot;Retake&quot;;</span>
+
+            <span class="s1">const width = video.videoWidth;</span>
+            <span class="s1">const height = video.videoHeight;</span>
+            <span class="s1">if(width &amp;&amp; height) {</span>
+            <span class="s1">canvas.width = width;</span>
+            <span class="s1">canvas.height = height;</span>
+            <span class="s1">const context = canvas.getContext(&quot;2d&quot;);</span>
+            <span class="s1">context.drawImage(video, 0, 0, width, height);</span>
+            <span class="s1">photoURL = canvas.toDataURL(&quot;image/png&quot;);</span>
+            <span class="s1">}</span>
+            <span class="s1">}</span>
+    <span class="s1">};</span>
+
+
+
+<span class="s0">&lt;/script&gt;</span>
+
+
+
+<span class="s0">&lt;input </span><span class="s2">list</span><span class="s3">=&quot;itemOptions&quot; </span><span class="s2">id</span><span class="s3">=&quot;itemName&quot; </span><span class="s2">placeholder</span><span class="s3">=&quot;Type or pick from below&quot; </span><span class="s2">style</span><span class="s3">=&quot;display:block; margin-top:15px; width:300px&quot;</span><span class="s0">&gt;</span>
+
+    <span class="s0">&lt;datalist </span><span class="s2">id</span><span class="s3">=&quot;itemOptions&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Airpods/Headphones</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Wallet</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Jacket</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Water bottle</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Lunchbox</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Pencil case</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Electronics</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Sports equipment</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Folder</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Instrument</span><span class="s0">&lt;/option&gt;</span>
+        <span class="s0">&lt;option&gt;</span><span class="s1">Clothing</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Other</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;/datalist&gt;</span>
+
+
+
+
+    <span class="s0">&lt;select </span><span class="s2">id</span><span class="s3">=&quot;locationFound&quot; </span><span class="s2">style</span><span class="s3">= &quot;width: 140px; height: 30px; margin-left: 10px; margin-top: 17px;&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;option&gt;</span><span class="s1">Location found...</span><span class="s0">&lt;/option&gt;</span>
+        <span class="s0">&lt;option&gt;</span><span class="s1">HS Gym</span><span class="s0">&lt;/option&gt;</span>
+        <span class="s0">&lt;option&gt;</span><span class="s1">MS Gym</span><span class="s0">&lt;/option&gt;</span>
+        <span class="s0">&lt;option&gt;</span><span class="s1">ES Gym</span><span class="s0">&lt;/option&gt;</span>
+        <span class="s0">&lt;option&gt;</span><span class="s1">Swimming Pool</span><span class="s0">&lt;/option&gt;</span>
+        <span class="s0">&lt;option&gt;</span><span class="s1">Hallways</span><span class="s0">&lt;/option&gt;</span>
+        <span class="s0">&lt;option&gt;</span><span class="s1">Cafeteria</span><span class="s0">&lt;/option&gt;</span>
+        <span class="s0">&lt;option&gt;</span><span class="s1">Bus</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;/select&gt;</span>
+
+<span class="s0">&lt;select </span><span class="s2">id</span><span class="s3">=&quot;currentLocation&quot; </span><span class="s2">style</span><span class="s3">= &quot;width: 140px; height: 30px; margin-left: 10px; margin-top: 17px;&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Current Location...</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">HS Office</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">MS Office</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">ES Office</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Bus Lost and Found</span><span class="s0">&lt;/option&gt;</span>
+    <span class="s0">&lt;option&gt;</span><span class="s1">Valuable Lost and Found</span><span class="s0">&lt;/option&gt;</span>
+
+<span class="s0">&lt;/select&gt;</span>
+
+<span class="s0">&lt;button </span><span class="s2">id</span><span class="s3">=&quot;submitButton&quot;</span>
+        <span class="s2">style</span><span class="s3">=&quot;</span>
+        <span class="s3">width:150px; 
+        height:40px; 
+        display:block; 
+        margin-top:30px; 
+        margin-left:160px; 
+        margin-right:30; 
+        background-color: #f7b80a; 
+        border-radius: 30px; 
+        border:3px solid black;&quot;</span><span class="s0">&gt;</span>
+    <span class="s1">SUBMIT</span>
+<span class="s0">&lt;/button&gt;</span>
+
+        <span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;feed&quot;</span><span class="s0">&gt;</span>
+
+
+
+
+<span class="s0">&lt;script&gt;</span>
+    <span class="s1">const subButton = document.getElementById(&quot;submitButton&quot;);</span>
+    <span class="s1">const videoReference = document.getElementById(&quot;video&quot;);</span>
+    <span class="s1">const feed = document.getElementById(&quot;feed&quot;);</span>
+
+    <span class="s1">subButton.onclick = () =&gt; {</span>
+        <span class="s1">const name = document.getElementById(&quot;itemName&quot;).value;</span>
+        <span class="s1">const found = document.getElementById(&quot;locationFound&quot;).value;</span>
+        <span class="s1">const current = document.getElementById(&quot;currentLocation&quot;).value;</span>
+        <span class="s1">const date = new Date().toLocaleDateString();</span>
+        <span class="s1">const photoHtml = photoURL</span>
+          <span class="s1">? `&lt;img src=&quot;${photoURL}&quot; style=&quot;width:90%; margin-top:10px; margin-left:10px; border-radius:10px; border:2px solid black;&quot;&gt;`</span>
+           <span class="s1">: `&lt;p style=&quot;margin:10px 0 0;&quot;&gt;&lt;b&gt;Photo:&lt;/b&gt; no image &lt;/p&gt;`;</span>
+
+
+      <span class="s1">feed.innerHTML += `</span>
+      <span class="s1">&lt;div style=&quot;</span>
+      <span class="s1">margin-top: 20px;</span>
+
+
+      <span class="s1">background: white;</span>
+      <span class="s1">border: 2px solid black;</span>
+      <span class="s1">border-radius: 10px;</span>
+      <span class="s1">&quot;&gt;</span>
+
+<span class="s1">${photoHtml}</span>
+      <span class="s1">&lt;p style=&quot;margin: 10px;&quot;&gt; &lt;b&gt;Item:&lt;/b&gt; ${name || &quot;none&quot;}&lt;/p&gt;</span>
+      <span class="s1">&lt;p style=&quot;margin: 0;&quot;&gt; &lt;b&gt;Found at:&lt;/b&gt; ${found}&lt;/p&gt;</span>
+      <span class="s1">&lt;p style=&quot;margin: 0;&quot;&gt; &lt;b&gt;Now at:&lt;/b&gt; ${current}&lt;/p&gt;</span>
+      <span class="s1">&lt;p style=&quot;margin: 0;&quot;&gt; &lt;b&gt;Date:&lt;/b&gt; ${date}&lt;/p&gt;</span>
+
+      <span class="s1">&lt;/div&gt;</span>
+      <span class="s1">`;</span>
+
+
+    <span class="s1">};</span>
+    <span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;/body&gt;</span>
+<span class="s0">&lt;/html&gt;</span></pre>
+</body>
+</html>
