@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    h1 {
+    font-family: Arial, sans-serif;
+    font-size:40px;
+    }
+    body {
+    font-family: Arial, sans-serif;
+    }
+    p {
+    font-family: Arial, sans-serif;
+    font-size:20px;
+    }
+
+    button {
+    font-size:15px;
+    }
+
+#layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+    #form {
+    width:500px;
+    }
+
+    #feed {
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-radius: 12px;
+    min-height: 400px;
+    max-height: 10000px;
+    width:1000px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap:20px;
+    overflow-y: auto;
+    align-content: start;
+    grid-auto-rows: auto;
+
+    }
+
+
+  </style>
+
+
+</head>
+<body style="background-color:lightgray;">
+
+<script>
+  let photoURL = null;
+</script>
+
+<h1> Mustangs Lost and Found </h1>
+
+<div id="layout">
+
+
+
+  <div id="form">
+
+    <p> Post a lost and found image below: </p>
+
+
+    <!--<input type="file"-->
+    <!--       accept="image/*"-->
+    <!--       capture-->
+    <!--       style="width:500px; height:200px; border: 5px solid black; border-radius: 20px; background-color: #f2f2f2";-->
+    <!--align-items:center;">-->
+
+    <button id="camera" type="button" style="display: block; margin-bottom:20px">Enable Camera</button>
+    <button id="capture" type="button" style="display:block; margin-bottom:20px">Capture</button>
+    <video id="video" autoplay playsinline style="width:500px; height:300px; background:black;"></video>
+
+    <canvas id="canvas" style="display:none;"></canvas>
+    <img id="photo" style="width:500px; height:300px; display:none; margin-top:15px; border-radius:12px; border:2px solid black;">
+
+
+    <script>
+      const canvas = document.getElementById("canvas");
+      const photo = document.getElementById("photo");
+      const video = document.getElementById("video");
+
+
+      document.getElementById("camera").onclick = async () => {
+
+          const stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false });
+          video.srcObject = stream;
+
+          };
+
+          document.getElementById("capture").onclick = () => {
+          if(video.paused) {
+          video.play();
+          photoURL = null;
+          document.getElementById("capture").innerText = "Capture";
+          }
+          else {
+              video.pause();
+              document.getElementById("capture").innerText = "Retake";
+
+              const width = video.videoWidth;
+              const height = video.videoHeight;
+              if(width && height) {
+              canvas.width = width;
+              canvas.height = height;
+              const context = canvas.getContext("2d");
+              context.drawImage(video, 0, 0, width, height);
+              photoURL = canvas.toDataURL("image/png");
+              }
+              }
+      };
+
+
+
+    </script>
+
+
+
+    <input list="itemOptions" id="itemName" placeholder="Type or pick from below" style="display:block; margin-top:15px; width:300px">
+
+    <datalist id="itemOptions">
+      <option>Airpods/Headphones</option>
+      <option>Wallet</option>
+      <option>Jacket</option>
+      <option>Water bottle</option>
+      <option>Lunchbox</option>
+      <option>Pencil case</option>
+      <option>Electronics</option>
+      <option>Sports equipment</option>
+      <option>Folder</option>
+      <option>Instrument</option>
+      <option>Clothing</option>
+      <option>Other</option>
+    </datalist>
+
+
+
+
+    <select id="locationFound" style= "width: 140px; height: 30px; margin-left: 10px; margin-top: 17px;">
+      <option>Location found...</option>
+      <option>HS Gym</option>
+      <option>MS Gym</option>
+      <option>ES Gym</option>
+      <option>Swimming Pool</option>
+      <option>Hallways</option>
+      <option>Cafeteria</option>
+      <option>Bus</option>
+    </select>
+
+    <select id="currentLocation" style= "width: 140px; height: 30px; margin-left: 10px; margin-top: 17px;">
+      <option>Current Location...</option>
+      <option>HS Office</option>
+      <option>MS Office</option>
+      <option>ES Office</option>
+      <option>Bus Lost and Found</option>
+      <option>Valuable Lost and Found</option>
+
+    </select>
+
+    <button id="submitButton"
+            style="
+        width:150px;
+        height:40px;
+        display:block;
+        margin-top:30px;
+        margin-left:160px;
+        margin-right:30;
+        background-color: #f7b80a;
+        border-radius: 30px;
+        border:3px solid black;">
+      SUBMIT
+    </button>
+
+  </div>
+
+  <div id="feed">
+
+
+
+
+    <script>
+      const subButton = document.getElementById("submitButton");
+      const videoReference = document.getElementById("video");
+      const feed = document.getElementById("feed");
+
+      subButton.onclick = () => {
+          const name = document.getElementById("itemName").value;
+          const found = document.getElementById("locationFound").value;
+          const current = document.getElementById("currentLocation").value;
+          const date = new Date().toLocaleDateString();
+          const photoHtml = photoURL
+            ? `<img src="${photoURL}" style="width:90%; margin-top:10px; margin-left:10px; border-radius:10px; border:2px solid black;">`
+             : `<p style="margin:10px 0 0;"><b>Photo:</b> no image </p>`;
+
+
+        feed.innerHTML += `
+        <div style="
+        margin-top: 20px;
+
+
+        background: white;
+        border: 2px solid black;
+        border-radius: 10px;
+        ">
+
+  ${photoHtml}
+        <p style="margin: 10px;"> <b>Item:</b> ${name || "none"}</p>
+        <p style="margin: 0;"> <b>Found at:</b> ${found}</p>
+        <p style="margin: 0;"> <b>Now at:</b> ${current}</p>
+        <p style="margin: 0;"> <b>Date:</b> ${date}</p>
+
+        </div>
+        `;
+
+
+      };
+    </script>
+
+  </div>
+</div>
+
+</body>
+</html>
