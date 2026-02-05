@@ -41,8 +41,88 @@
     overflow-y: auto;
     align-content: start;
     grid-auto-rows: auto;
+    border-color:e6e6e6;
 
     }
+
+    .post {
+    margin-top: 20px;
+    background: white;
+    height: 300px;
+    border: none;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+    background-color:white;
+    transition: background-color 0.2s ease-in-out, transform 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+
+    }
+
+    .post-title {
+    font-size: 20px;
+    bold: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    }
+
+    .post-info strong{
+    font-weight: 500;
+    }
+
+    .current-place {
+    border-radius: 500px;
+    width: 265px;
+    height: 20px;
+    line-height: 20px;
+    color: white;
+    background: #f7b80a;
+    font-size: 15px;
+    padding: 0px;
+    margin-left: 5px;
+    margin-top: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    }
+
+    .date-found {
+    color: black;
+    flex-shrink: 0;
+    }
+
+
+
+    .post-footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 10px 6px;
+    font-size: 15px;
+    align-items: center;
+    color: black;
+    margin-top: auto;
+    }
+
+
+
+    .post-found {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+
+    .post:hover {
+    box-shadow:none;
+    cursor: pointer;
+    transform: scale(0.99);
+    }
+
+    button:hover {
+    cursor: pointer;
+    filter: brightness(0.9);
+    }
+
+    select {
+
+}
 
 
   </style>
@@ -141,8 +221,8 @@
 
 
 
-    <select id="locationFound" style= "width: 140px; height: 30px; margin-left: 10px; margin-top: 17px;">
-      <option>Location found...</option>
+    <input list="locationFound" id="locationFoundInput" style= "width: 140px; height: 24px; margin-left: 10px; margin-top: 17px;" placeholder="Location Found...">
+    <datalist id="locationFound">
       <option>HS Gym</option>
       <option>MS Gym</option>
       <option>ES Gym</option>
@@ -150,7 +230,10 @@
       <option>Hallways</option>
       <option>Cafeteria</option>
       <option>Bus</option>
-    </select>
+      <option>MPR</option>
+      <option>Theatre</option>
+    </datalist>
+
 
     <select id="currentLocation" style= "width: 140px; height: 30px; margin-left: 10px; margin-top: 17px;">
       <option>Current Location...</option>
@@ -159,6 +242,10 @@
       <option>ES Office</option>
       <option>Bus Lost and Found</option>
       <option>Valuable Lost and Found</option>
+      <option>Band Room</option>
+      <option>Choir Room</option>
+      <option>Orchestra Room</option>
+
 
     </select>
 
@@ -190,29 +277,44 @@
 
       subButton.onclick = () => {
           const name = document.getElementById("itemName").value;
-          const found = document.getElementById("locationFound").value;
+          const found = document.getElementById("locationFoundInput").value;
           const current = document.getElementById("currentLocation").value;
           const date = new Date().toLocaleDateString();
           const photoHtml = photoURL
-            ? `<img src="${photoURL}" style="width:90%; margin-top:10px; margin-left:10px; border-radius:10px; border:2px solid black;">`
+            ? `<img src="${photoURL}" style="width:89%; margin-top:2px; margin-left:10px; border-radius:10px; border:5px solid lightgray;">`
              : `<p style="margin:10px 0 0;"><b>Photo:</b> no image </p>`;
 
 
         feed.innerHTML += `
-        <div style="
-        margin-top: 20px;
 
 
-        background: white;
-        border: 2px solid black;
-        border-radius: 10px;
-        ">
 
-  ${photoHtml}
-        <p style="margin: 10px;"> <b>Item:</b> ${name || "none"}</p>
-        <p style="margin: 0;"> <b>Found at:</b> ${found}</p>
-        <p style="margin: 0;"> <b>Now at:</b> ${current}</p>
-        <p style="margin: 0;"> <b>Date:</b> ${date}</p>
+
+        <div class="post">
+         <div class="post-title">
+        <b>${name || "unnamed"}</b>
+        </div>
+        ${photoHtml}
+
+        <div class="post-name-and-place">
+
+
+
+        <div class="current-place">
+        <b>${current}</b>
+         </div>
+         </div>
+
+          <div class="post-footer">
+
+        <div class="post-info">
+        <strong>Found: </strong> ${found}
+        </div>
+
+        <div class="date-found">
+        ${date}
+        </div>
+        </div>
 
         </div>
         `;
